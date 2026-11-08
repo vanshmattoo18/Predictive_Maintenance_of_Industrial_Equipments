@@ -1,6 +1,20 @@
 # BITS F464 CIA-2: Predictive Maintenance on MetroPT-3
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/vanshmattoo18/Predictive_Maintenance_of_Industrial_Equipments/blob/main/notebooks/CIA2_Colab.ipynb)
+
 **Team:** Vansh (2024A7PS0149U)
+
+## Quick Start
+
+- **(a) Colab:** click the "Open in Colab" badge above and choose *Runtime > Run all*. The notebook downloads MetroPT-3 automatically (it falls back to a manual upload if the download fails).
+- **(b) Locally:**
+  ```bash
+  pip install -r requirements.txt
+  python run_all.py
+  ```
+  `run_all.py` runs `src/00` to `src/15` in order and stops on the first error. `src/00_download_data.py` downloads the dataset into `data/raw/` only if it is not already there.
+
+Scripts 04-15 work immediately from the included `data/processed/metropt3_features.csv`, so if you only want the models you can skip the download and run them directly, e.g. `python src/13_fair_benchmark.py`.
 
 ## Problem Description
 
@@ -12,11 +26,11 @@ Unplanned failures of metro train air compressors cause costly downtime and serv
 
 ### Downloading the data
 
-The dataset is not included in this repository (it is large).
+The raw dataset is not included in this repository (it is large). `python src/00_download_data.py` (or `run_all.py`) downloads it for you; to do it by hand:
 
 1. Go to https://archive.ics.uci.edu/dataset/791/metropt+3+dataset and download the dataset (a zip file).
 2. Unzip it and place **`MetroPT3(AirCompressor).csv`** in **`data/raw/`** (optionally also the data-description PDF).
-3. Run the scripts below. `src/01` and `src/03` regenerate `data/processed/metropt3_labeled.csv` and `data/processed/metropt3_features.csv`; these CSVs are git-ignored, so they must be rebuilt after cloning.
+3. Run the scripts below. `src/01` and `src/03` regenerate `data/processed/metropt3_labeled.csv` (git-ignored, about 200 MB) and `data/processed/metropt3_features.csv` (about 18 MB, included in the repo).
 
 ## Project Structure
 
@@ -45,6 +59,7 @@ The dataset is not included in this repository (it is large).
 
 2. Run the scripts in order — each one builds on the output of the previous:
    ```bash
+   python src/00_download_data.py            # Download MetroPT-3 into data/raw/ (skipped if present)
    python src/01_label_and_explore.py        # Label raw data with failure windows
    python src/02_eda_plots.py                # Exploratory plots
    python src/03_feature_engineering.py      # Build 5-min window features
