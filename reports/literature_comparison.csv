@@ -1,0 +1,6 @@
+Source,Model,Split,Precision,Recall,F1,Comparable?
+IJACSA 2025 (Akshitha Mary et al.),LSTM+Autoencoder,80/20,0.98,0.434,0.6,No - different labeling/windowing/splits
+IJACSA 2025 baseline,Sparse Autoencoder,80/20,0.8,0.4,0.533,No - different labeling/windowing/splits
+Najjar et al. 2023,Random Forest,not stated,,,0.85,"No - different labeling/windowing/splits (binary, F1 approx.)"
+Ours,Logistic Regression (val-selected C=0.001),chronological,0.6781,0.9078,0.7763,Strictest split; closest to deployment
+Ours,Logistic Regression (same C=0.001),random 80/20 (leaky),0.4298,0.9849,0.5985,"Only comparable to literature's 80/20 splits, and inflated by leakage"
